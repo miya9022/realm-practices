@@ -110,9 +110,11 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab_2);
         fab.setOnClickListener(view -> {
             User u = (User) realmProvider.queryAll(User.class).get(0);
-            Snackbar.make(findViewById(R.id.content_main),
-                    "first user: " + u.getName() + " with age: " + u.getAge(),
-                    Snackbar.LENGTH_LONG).show();
+            if(u != null) {
+                Snackbar.make(findViewById(R.id.content_main),
+                        "first user: " + u.getName() + " with age: " + u.getAge(),
+                        Snackbar.LENGTH_LONG).show();
+            }
         });
         fab1.setOnClickListener(view -> realmProvider.deleteFirst(User.class));
         fab2.setOnClickListener(view -> {

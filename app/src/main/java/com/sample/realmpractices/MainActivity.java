@@ -93,9 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         users
                             .stream()
-                            .forEach(user -> {
-                                realmProvider.insert(user);
-                            });
+                            .forEach(user -> realmProvider.insert(user));
                     } else {
                         for(User user: users) {
                             realmProvider.insert(user);
@@ -117,9 +115,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         fab1.setOnClickListener(view -> realmProvider.deleteFirst(User.class));
-        fab2.setOnClickListener(view -> {
-            showCreateUserDialog();
-        });
+        fab2.setOnClickListener(view -> showCreateUserDialog());
         realmProvider.addOnChangeListener((type, o) -> {
             switch (type) {
                 case RealmProvider.Type.INSERT:

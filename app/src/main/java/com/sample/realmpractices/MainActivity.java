@@ -1,10 +1,10 @@
 package com.sample.realmpractices;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,10 +18,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.annimon.stream.Stream;
+import com.sample.realmpractices.adapter.SearchAdapter;
 import com.sample.realmpractices.adapter.UserAdapter;
 import com.sample.realmpractices.helper.ClientBuilder;
 import com.sample.realmpractices.helper.RealmProvider;
@@ -90,15 +95,9 @@ public class MainActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(users -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        users
-                            .stream()
+                    Stream.of(users)
+                            .sorted((user1, user2) -> user1.getId() - user2.getId())
                             .forEach(user -> realmProvider.insert(user));
-                    } else {
-                        for(User user: users) {
-                            realmProvider.insert(user);
-                        }
-                    }
                 }, (e) -> Log.d(TAG, "Error has occur caused by " + e.getClass().getCanonicalName()), () -> Log.d(TAG, "success"));
     }
 
@@ -237,10 +236,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private AutoCompleteTextView searchView;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        searchView = (AutoCompleteTextView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        searchView.setHint("Search...");
+        searchView.setDropDownWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        searchView.setDropDownBackgroundResource(android.R.color.white);
+        searchView.setThreshold(1);
+        searchView.setFocusable(true);
+        searchView.setFocusableInTouchMode(true);
+
+        SearchAdapter searchAdapter = new SearchAdapter(this, R.layout.item_user_search, new ArrayList<>());
+        searchView.setAdapter(searchAdapter);
+        ClientBuilder.createDefaultWebservice()
+                .getAllUsers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(searchAdapter::updateData);
+
+        searchView.setOnItemClickListener((parent, view, position, id) -> {
+            final User user = searchAdapter.getItem(position);
+            searchView.clearListSelection();
+            searchView.setText("");
+            Toast.makeText(this, "User Information: " + user.getName() + "\n" + user.getAge(), Toast.LENGTH_SHORT).show();
+        });
         return true;
     }
 
@@ -252,8 +275,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_search) {
+            if(searchView != null)
+                searchView.requestFocus();
         }
 
         return super.onOptionsItemSelected(item);

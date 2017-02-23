@@ -6,6 +6,6 @@ package com.sample.realmpractices.util;
 
 public class Params {
 
-    public static final String BASE_URL = "http://192.168.100.11/raw/";
+    public static final String BASE_URL = "http://192.168.100.14/raw/";
 
 }

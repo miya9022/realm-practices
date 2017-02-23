@@ -43,7 +43,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="e91394337487ab3a2803dca9a30eb85c46a6a3f1">
+        sha1="9f4526e3051dc8a5033d5890c7d15b4ee20e2a7a">
         <dex dex="/Users/app/Desktop/cloned/android-samples/RealmPractices/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_665f4299ebd65975fbfc6b10ec5224d12d0fdcb0/classes.dex" />
     </item>
     <item
@@ -108,6 +108,15 @@
         revision="25.0.1"
         sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
         <dex dex="/Users/app/Desktop/cloned/android-samples/RealmPractices/app/build/intermediates/transforms/dex/debug/folders/1000/10/glide-3.7.0_fd7783d84c0a4aa4eaa750b0437dbd362345811c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/app/.gradle/caches/modules-2/files-2.1/com.annimon/stream/1.1.5/eaf8628940de1343126d1323b4325586c87d2c08/stream-1.1.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="eaf8628940de1343126d1323b4325586c87d2c08">
+        <dex dex="/Users/app/Desktop/cloned/android-samples/RealmPractices/app/build/intermediates/transforms/dex/debug/folders/1000/10/stream-1.1.5_d155324e4156c72ecc7bbfb4472a80ea05a18641/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -250,7 +259,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="3b7ea4eb02be9fbccebcf5caf80a19e719ba4db8">
+        sha1="ec793fad5abc315f8da708181f8217323d7faf81">
         <dex dex="/Users/app/Desktop/cloned/android-samples/RealmPractices/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_f9d534dd9c0f62fca69f683fdcb5410b455c31e9/classes.dex" />
     </item>
 

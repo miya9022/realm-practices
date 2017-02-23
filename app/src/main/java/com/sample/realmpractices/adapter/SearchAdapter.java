@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
 
+import com.annimon.stream.Stream;
 import com.sample.realmpractices.R;
 import com.sample.realmpractices.model.User;
 
@@ -114,11 +115,10 @@ public class SearchAdapter extends ArrayAdapter<User> {
                 if(constraint != null) {
                     constraints = constraint.toString().toLowerCase();
                     lsRequestedSearch.clear();
-                    for(User u : lsAllUsers) {
-                        if (u.getName().toLowerCase().contains(constraint.toString().toLowerCase())) {
-                            lsRequestedSearch.add(u);
-                        }
-                    }
+                    Stream.of(lsAllUsers)
+                            .filter(u -> u.getName().toLowerCase().contains(constraints))
+                            .forEach(lsRequestedSearch::add);
+
                     FilterResults filterResults = new FilterResults();
                     filterResults.values = lsRequestedSearch;
                     filterResults.count = lsRequestedSearch.size();
@@ -132,11 +132,9 @@ public class SearchAdapter extends ArrayAdapter<User> {
                 lsUsers.clear();
                 if(results != null && results.count > 0) {
                     List<?> result = (List<?>) results.values;
-                    for(Object o : result) {
-                        if(o instanceof User) {
-                            lsUsers.add((User) o);
-                        }
-                    }
+                    Stream.of(result)
+                            .filter(o -> o instanceof User)
+                            .forEach(o -> lsUsers.add((User) o));
                 } else if(constraint == null) {
                     lsUsers.addAll(lsAllUsers);
                 }

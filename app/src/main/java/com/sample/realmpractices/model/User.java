@@ -25,6 +25,7 @@ public class User extends RealmObject {
         this.id = RealmProvider.getLastId(User.class, "id") + 1;
         this.name = name;
         this.age = age;
+        this.emails = new RealmList<>();
     }
 
     public int getId() {
@@ -57,5 +58,9 @@ public class User extends RealmObject {
 
     public void setEmails(RealmList<Email> emails) {
         this.emails = emails;
+    }
+
+    public void addEmail(Email email) {
+        emails.add(email);
     }
 }

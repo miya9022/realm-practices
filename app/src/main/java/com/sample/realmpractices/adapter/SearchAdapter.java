@@ -1,6 +1,7 @@
 package com.sample.realmpractices.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,6 @@ import java.util.List;
  */
 
 public class SearchAdapter extends ArrayAdapter<User> {
-    private Context mContext;
-
     private ArrayList<User> lsUsers;
     private ArrayList<User> lsAllUsers;
     private ArrayList<User> lsRequestedSearch;
@@ -32,7 +31,6 @@ public class SearchAdapter extends ArrayAdapter<User> {
 
     public SearchAdapter(Context context, int resource, List<User> objects) {
         super(context, resource, objects);
-        this.mContext = context;
         this.lsUsers = new ArrayList<>(objects);
         this.lsAllUsers = new ArrayList<>(objects);
         this.lsRequestedSearch = new ArrayList<>();
@@ -76,8 +74,9 @@ public class SearchAdapter extends ArrayAdapter<User> {
         return position;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         final User u = getItem(position);
         Holder holder;
         if(convertView == null) {
@@ -100,6 +99,7 @@ public class SearchAdapter extends ArrayAdapter<User> {
                 if (nameLowerCase.contains(constraints)) {
                     int start = nameLowerCase.indexOf(constraints);
                     int end = start + constraints.length();
+
                     String startSt = start > 0 ? name.substring(0, start) : "";
                     String suggested = name.substring(start, end);
                     String endSt = end == name.length() ? "" : name.substring(end, name.length());
@@ -113,10 +113,11 @@ public class SearchAdapter extends ArrayAdapter<User> {
         return convertView;
     }
 
-    public class Holder {
-        public TextView tvName, tvAge;
+    private class Holder {
+        private TextView tvName, tvAge;
     }
 
+    @NonNull
     @Override
     public Filter getFilter() {
         return new Filter() {

@@ -104,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
                                         realmProvider.insert(user);
                                     }
                                 }),
-                    (e) -> Log.d(TAG, "Error has occur caused by " + e.getClass().getCanonicalName()), () -> Log.d(TAG, "success"));
+                    (e) -> Log.d(TAG, "Error has occur caused by " + e.getClass().getCanonicalName()),
+                    () -> Log.d(TAG, "success"));
     }
 
     private boolean checkUserExist(int uid) {
@@ -141,9 +142,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         });
-        rcvUsers.addOnItemTouchListener(new RecyclerTouchListener(this, rcvUsers, (view, position) -> {
-            showEmailsDialog(adapter.getPosition(position).getEmails());
-        }));
+        rcvUsers.addOnItemTouchListener(new RecyclerTouchListener(this, rcvUsers,
+                (view, position) -> showEmailsDialog(adapter.getPosition(position).getEmails())));
     }
 
     private void showCreateUserDialog() {
@@ -272,7 +272,8 @@ public class MainActivity extends AppCompatActivity {
             final User user = searchAdapter.getItem(position);
             searchView.clearListSelection();
             searchView.setText("");
-            Toast.makeText(this, "User Information: " + user.getName() + "\n" + user.getAge(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "User Information:\n - Name: " + user.getName()
+                    + "\n - Age: " + user.getAge(), Toast.LENGTH_SHORT).show();
         });
         return true;
     }

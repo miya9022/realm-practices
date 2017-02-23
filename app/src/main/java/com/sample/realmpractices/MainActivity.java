@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private RealmProvider realmProvider;
     private RecyclerView rcvUsers;
     private UserAdapter adapter;
+    private SearchAdapter searchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,13 +132,19 @@ public class MainActivity extends AppCompatActivity {
                 case RealmProvider.Type.INSERT:
                     if(o instanceof User) {
                         User u = (User) o;
-                        runOnUiThread(() -> adapter.addUser(u));
+                        runOnUiThread(() -> {
+                            adapter.addUser(u);
+                            searchAdapter.addData(u);
+                        });
                     }
                     break;
                 case RealmProvider.Type.DELETE:
                     if (o instanceof User) {
                         User u = (User) o;
-                        runOnUiThread(() -> adapter.deleteUser(u.getId()));
+                        runOnUiThread(() -> {
+                            adapter.deleteUser(u.getId());
+                            searchAdapter.removeData(u);
+                        });
                     }
                     break;
             }
@@ -181,7 +188,8 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("OK", (dialog, which) -> {
                     dialog.dismiss();
                     String name = edtName.getText().toString().trim();
-                    int age = Integer.parseInt(edtAge.getText().toString().trim());
+                    String ageStr = edtAge.getText().toString().trim();
+                    int age = ageStr.isEmpty() ? 0 : Integer.parseInt(ageStr);
                     User user = new User(name, age);
                     realmProvider.insert(user);
                 })
@@ -260,13 +268,12 @@ public class MainActivity extends AppCompatActivity {
         searchView.setFocusable(true);
         searchView.setFocusableInTouchMode(true);
 
-        SearchAdapter searchAdapter = new SearchAdapter(this, R.layout.item_user_search, new ArrayList<>());
+        searchAdapter = new SearchAdapter(this, R.layout.item_user_search, new ArrayList<>());
         searchView.setAdapter(searchAdapter);
-        ClientBuilder.createDefaultWebservice()
-                .getAllUsers()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(searchAdapter::updateData);
+
+        Stream.of(realmProvider.getAllByClass(User.class))
+                .filter(o -> o instanceof User)
+                .forEach(o -> searchAdapter.addData((User) o));
 
         searchView.setOnItemClickListener((parent, view, position, id) -> {
             final User user = searchAdapter.getItem(position);

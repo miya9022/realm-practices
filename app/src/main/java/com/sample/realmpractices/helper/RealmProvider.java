@@ -2,6 +2,8 @@ package com.sample.realmpractices.helper;
 
 import android.util.Log;
 
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
@@ -69,18 +71,22 @@ public class RealmProvider {
         },() -> Log.d(TAG, "delete success"), (e) -> Log.d(TAG, "delete failed caused by " + e.getMessage()));
     }
 
-    public RealmObject getRealmObjectById(Class<? extends RealmObject> c, String idName, int id) {
-        return getDefaultInstance().where(c).equalTo(idName, id).findFirst();
-    }
-
     public void deleteTable(Class<? extends RealmObject> c) {
         getDefaultInstance().executeTransactionAsync(realm -> {
             realm.delete(c);
         },() -> Log.d(TAG, "delete success"), (e) -> Log.d(TAG, "delete failed caused by " + e.getMessage()));
     }
 
+    public RealmObject getRealmObjectById(Class<? extends RealmObject> c, String idName, int id) {
+        return getDefaultInstance().where(c).equalTo(idName, id).findFirst();
+    }
+
+    public List<? extends RealmObject> getAllByClass(Class<? extends RealmObject> clazz) {
+        return getDefaultInstance().copyFromRealm(queryAll(clazz));
+    }
+
     public RealmResults<? extends RealmObject> queryAll(Class<? extends RealmObject> c) {
-        return getDefaultInstance().where(c).findAllAsync();
+        return getDefaultInstance().where(c).findAll();
     }
 
     private OnChangeListener onChangeListener;

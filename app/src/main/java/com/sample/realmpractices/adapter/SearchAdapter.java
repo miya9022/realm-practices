@@ -46,6 +46,21 @@ public class SearchAdapter extends ArrayAdapter<User> {
         notifyDataSetChanged();
     }
 
+    public void addData(User user) {
+        lsAllUsers.add(user);
+        notifyDataSetChanged();
+    }
+
+    public void removeData(User data) {
+        Stream.of(lsAllUsers)
+            .filter(user -> user.getId() == data.getId())
+            .findFirst()
+            .ifPresent(user -> {
+                lsAllUsers.remove(user);
+                notifyDataSetChanged();
+            });
+    }
+
     @Override
     public int getCount() {
         return lsUsers.size();

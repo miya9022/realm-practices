@@ -1,7 +1,6 @@
 package com.sample.realmpractices.adapter;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.annimon.stream.Stream;
 import com.sample.realmpractices.R;
 import com.sample.realmpractices.model.User;
 
@@ -61,30 +61,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     public void deleteUser(int id) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            users
-                .parallelStream()
-                .filter(user -> id == user.getId())
-                .findFirst()
-                .ifPresent(user -> {
-                    int i = users.indexOf(user);
-                    users.remove(user);
-                    notifyItemRangeRemoved(i, 1);
-                });
-        } else {
-            User user1 = null;
-            for (User user: users) {
-                if(id == user.getId()) {
-                    user1 = user;
-                    break;
-                }
-            }
-            if (user1 != null) {
-                int i = users.indexOf(user1);
-                users.remove(user1);
+        Stream.of(users)
+            .filter(user -> id == user.getId())
+            .findFirst()
+            .ifPresent(user -> {
+                int i = users.indexOf(user);
+                users.remove(user);
                 notifyItemRangeRemoved(i, 1);
-            }
-        }
+            });
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {

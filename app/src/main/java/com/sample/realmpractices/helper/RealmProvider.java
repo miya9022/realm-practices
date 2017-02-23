@@ -61,12 +61,16 @@ public class RealmProvider {
 
     public void deleteById(Class<? extends RealmObject> c, int id) {
         getDefaultInstance().executeTransactionAsync(realm -> {
-            RealmObject object = getDefaultInstance().where(c).equalTo("id", id).findFirst();
+            RealmObject object = getRealmObjectById(c, "id", id);
             Object o = realm.copyFromRealm(object);
             object.deleteFromRealm();
             if (onChangeListener != null)
                 onChangeListener.onChange(Type.DELETE, o);
         },() -> Log.d(TAG, "delete success"), (e) -> Log.d(TAG, "delete failed caused by " + e.getMessage()));
+    }
+
+    public RealmObject getRealmObjectById(Class<? extends RealmObject> c, String idName, int id) {
+        return getDefaultInstance().where(c).equalTo(idName, id).findFirst();
     }
 
     public void deleteTable(Class<? extends RealmObject> c) {

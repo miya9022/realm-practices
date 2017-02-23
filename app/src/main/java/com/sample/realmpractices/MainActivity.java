@@ -94,11 +94,21 @@ public class MainActivity extends AppCompatActivity {
                 .getAllUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(users -> {
-                    Stream.of(users)
-                            .sorted((user1, user2) -> user1.getId() - user2.getId())
-                            .forEach(user -> realmProvider.insert(user));
-                }, (e) -> Log.d(TAG, "Error has occur caused by " + e.getClass().getCanonicalName()), () -> Log.d(TAG, "success"));
+                .subscribe(
+                    users -> Stream.of(users)
+                                .sorted((user1, user2) -> user1.getId() - user2.getId())
+                                .forEach(user -> {
+                                    if (checkUserExist(user.getId())) {
+                                        adapter.addUser(user);
+                                    } else {
+                                        realmProvider.insert(user);
+                                    }
+                                }),
+                    (e) -> Log.d(TAG, "Error has occur caused by " + e.getClass().getCanonicalName()), () -> Log.d(TAG, "success"));
+    }
+
+    private boolean checkUserExist(int uid) {
+        return realmProvider.getRealmObjectById(User.class, "id", uid) != null;
     }
 
     private void setupSomeListeners() {

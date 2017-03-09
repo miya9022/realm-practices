@@ -43,7 +43,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="9f4526e3051dc8a5033d5890c7d15b4ee20e2a7a">
+        sha1="41d52e9a750178f4780019ba779f8727c51f3256">
         <dex dex="/Users/app/Desktop/cloned/android-samples/RealmPractices/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_665f4299ebd65975fbfc6b10ec5224d12d0fdcb0/classes.dex" />
     </item>
     <item
@@ -259,7 +259,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="ec793fad5abc315f8da708181f8217323d7faf81">
+        sha1="65ff2e57c92cbe6616c3909fed6755d0cc81c7d8">
         <dex dex="/Users/app/Desktop/cloned/android-samples/RealmPractices/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_f9d534dd9c0f62fca69f683fdcb5410b455c31e9/classes.dex" />
     </item>
 

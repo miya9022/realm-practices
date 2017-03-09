@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.sample.realmpractices.R;
 import com.sample.realmpractices.domain.interactor.GetUserListUseCase;
@@ -314,19 +315,14 @@ public class MainActivity extends BaseActivity implements UserListView {
 
         searchAdapter = new SearchAdapter(this, R.layout.item_user_search, new ArrayList<>());
         searchView.setAdapter(searchAdapter);
-
-//        Stream.of(realmProvider.getAllByClass(UserModel.class))
-//                .filter(o -> o instanceof UserModel)
-//                .forEach(o -> searchAdapter.addData((UserModel) o));
-//
-//        searchView.setOnItemClickListener((parent, view, position, id) -> {
-//            final UserModel userModel = searchAdapter.getItem(position);
-//            searchView.clearListSelection();
-//            searchView.setText("");
-//            Toast.makeText(this, "UserModel Information:" +
-//                    "\n - Name: " + userModel.getName() +
-//                    "\n - Age: " + userModel.getAge(), Toast.LENGTH_SHORT).show();
-//        });
+        searchView.setOnItemClickListener((parent, view, position, id) -> {
+            final UserModel userModel = searchAdapter.getItem(position);
+            searchView.clearListSelection();
+            searchView.setText("");
+            Toast.makeText(this, "UserModel Information:" +
+                    "\n - Name: " + userModel.getName() +
+                    "\n - Age: " + userModel.getAge(), Toast.LENGTH_SHORT).show();
+        });
         return true;
     }
 
@@ -368,6 +364,7 @@ public class MainActivity extends BaseActivity implements UserListView {
     public void renderUserList(Collection<UserModel> userModelCollection) {
         if(userModelCollection != null) {
             userAdapter.setUserCollection(userModelCollection);
+            searchAdapter.updateData(userModelCollection);
         }
     }
 
@@ -403,6 +400,6 @@ public class MainActivity extends BaseActivity implements UserListView {
 
     @Override
     public Context getContext() {
-        return null;
+        return getApplicationContext();
     }
 }

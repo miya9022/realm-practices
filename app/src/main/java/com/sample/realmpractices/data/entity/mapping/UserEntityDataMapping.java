@@ -41,10 +41,7 @@ public class UserEntityDataMapping {
 
     public List<User> replicateUserListFromRealm(List<UserEntity> userEntities) {
         List<User> users = new ArrayList<>();
-        Stream.of(userEntities)
-                .forEach(userEntity -> {
-                    users.add(this.replicateUserFromRealm(userEntity));
-                });
+        Stream.of(userEntities).forEach(userEntity -> users.add(this.replicateUserFromRealm(userEntity)));
         return users;
     }
 }

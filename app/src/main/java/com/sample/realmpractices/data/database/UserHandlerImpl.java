@@ -29,4 +29,9 @@ public class UserHandlerImpl implements UserHandler {
     public void put(UserEntity userEntity) {
         realmProvider.insert(userEntity);
     }
+
+    @Override
+    public void delete(final int uid) {
+        realmProvider.deleteById(UserEntity.class, uid);
+    }
 }

@@ -13,4 +13,6 @@ public interface UserHandler {
     Observable<UserEntity> get(final int userId);
 
     void put(UserEntity userEntity);
+
+    void delete(final int uid);
 }

@@ -15,6 +15,7 @@ import com.sample.realmpractices.R;
 import com.sample.realmpractices.presentation.model.UserModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class SearchAdapter extends ArrayAdapter<UserModel> {
         this.resId = resource == 0 ? android.R.layout.simple_list_item_1 : resource;
     }
 
-    public void updateData(List<UserModel> objects) {
+    public void updateData(Collection<UserModel> objects) {
         this.lsAllUserModels = new ArrayList<>(objects);
         this.lsUserModels = new ArrayList<>(objects);
         notifyDataSetChanged();

@@ -1,5 +1,6 @@
 package com.sample.realmpractices.presentation.view;
 
+import com.sample.realmpractices.presentation.model.EmailModel;
 import com.sample.realmpractices.presentation.model.UserModel;
 
 import java.util.Collection;
@@ -12,4 +13,6 @@ public interface UserListView extends LoadDataView {
     void renderUserList(Collection<UserModel> userModelCollection);
 
     void viewUser(UserModel userModel);
+
+    void showEmailsDialog(Collection<EmailModel> emailModels);
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.sample.realmpractices.data.database.UserHandler;
 import com.sample.realmpractices.domain.executor.PostExecutionThread;
 import com.sample.realmpractices.domain.executor.ThreadExecutor;
+import com.sample.realmpractices.domain.repository.EmailRepository;
 import com.sample.realmpractices.domain.repository.UserRepository;
 import com.sample.realmpractices.presentation.MyApplication;
 
@@ -36,5 +37,9 @@ public final class ApplicationComponent extends ApplicationModule {
 
     public UserRepository getUserRepository() {
         return super.provideUserRepository();
+    }
+
+    public EmailRepository getEmailRepository() {
+        return super.provideEmailRepository();
     }
 }

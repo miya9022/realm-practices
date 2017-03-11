@@ -16,7 +16,9 @@ class WebServiceApiConnection {
     static WebServiceApi createDefaultWebServiceApi() {
         return new Retrofit.Builder()
                 .baseUrl(Params.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(new GsonRealmBuilder().createCustomGsonForRealmObject().getGson()))
+                .addConverterFactory(
+                    GsonConverterFactory.create(new GsonRealmBuilder().createCustomGsonForRealmObject().getGson())
+                )
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build()
                 .create(WebServiceApi.class);

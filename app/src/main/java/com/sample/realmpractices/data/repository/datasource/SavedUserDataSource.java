@@ -1,5 +1,6 @@
 package com.sample.realmpractices.data.repository.datasource;
 
+import com.annimon.stream.Stream;
 import com.sample.realmpractices.data.database.UserHandler;
 import com.sample.realmpractices.data.entity.UserEntity;
 import com.sample.realmpractices.data.net.WebServiceApi;
@@ -7,6 +8,8 @@ import com.sample.realmpractices.data.net.WebServiceApi;
 import java.util.List;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by app on 3/9/17.
@@ -23,7 +26,16 @@ class SavedUserDataSource implements UserDataSource {
 
     @Override
     public Observable<List<UserEntity>> userEntities() {
-        return webServiceApi.getAllUsers();
+        Observable<List<UserEntity>> listObservable = webServiceApi.getAllUsers();
+        listObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::insertDataToRealm);
+        return listObservable;
+    }
+
+    private void insertDataToRealm(List<UserEntity> userEntities) {
+        Stream.of(userEntities).forEach(userHandler::put);
     }
 
     @Override

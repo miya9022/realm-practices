@@ -1,6 +1,9 @@
 package com.sample.realmpractices.data.database;
 
+import com.sample.realmpractices.data.entity.EmailEntity;
 import com.sample.realmpractices.data.entity.UserEntity;
+
+import java.util.List;
 
 import rx.Observable;
 
@@ -14,5 +17,7 @@ public interface UserHandler {
 
     void put(UserEntity userEntity);
 
-    void delete(final int uid);
+    void deleteUser(final int uid);
+
+    List<EmailEntity> getEmailsByUserId(final int userId);
 }

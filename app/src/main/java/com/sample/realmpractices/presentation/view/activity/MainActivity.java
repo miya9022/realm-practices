@@ -21,7 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sample.realmpractices.R;
+import com.sample.realmpractices.domain.interactor.GetUserEmailListUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserListUseCase;
+import com.sample.realmpractices.presentation.mapper.EmailModelDataMapping;
 import com.sample.realmpractices.presentation.mapper.UserModelDataMapping;
 import com.sample.realmpractices.presentation.model.EmailModel;
 import com.sample.realmpractices.presentation.model.UserModel;
@@ -29,6 +31,7 @@ import com.sample.realmpractices.presentation.presenter.UserListPresenter;
 import com.sample.realmpractices.presentation.view.UserListView;
 import com.sample.realmpractices.presentation.view.adapter.SearchAdapter;
 import com.sample.realmpractices.presentation.view.adapter.UserAdapter;
+import com.sample.realmpractices.presentation.view.component.RecyclerTouchListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -50,11 +53,18 @@ public class MainActivity extends BaseActivity implements UserListView {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupRecyclerView();
-        userListPresenter = new UserListPresenter(new GetUserListUseCase(
-                getApplicationComponent().getUserRepository(),
-                getApplicationComponent().getThreadExecutor(),
-                getApplicationComponent().getPostExecutionThread()),
-                new UserModelDataMapping());
+        userListPresenter = new UserListPresenter(
+                new GetUserListUseCase(
+                    getApplicationComponent().getUserRepository(),
+                    getApplicationComponent().getThreadExecutor(),
+                    getApplicationComponent().getPostExecutionThread()),
+                new GetUserEmailListUseCase(
+                    getApplicationComponent().getEmailRepository(),
+                    getApplicationComponent().getThreadExecutor(),
+                    getApplicationComponent().getPostExecutionThread()
+                ),
+                new UserModelDataMapping(),
+                new EmailModelDataMapping());
         userListPresenter.setUserListView(this);
         userListPresenter.initialize();
 
@@ -68,6 +78,8 @@ public class MainActivity extends BaseActivity implements UserListView {
         rcvUsers.setLayoutManager(layoutManager);
         userAdapter = new UserAdapter(this);
         rcvUsers.setAdapter(userAdapter);
+        rcvUsers.addOnItemTouchListener(new RecyclerTouchListener(this, rcvUsers,
+                (view, position) -> userListPresenter.onUserClicked(userAdapter.getPosition(position))));
 
 //        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 //            @Override
@@ -226,10 +238,12 @@ public class MainActivity extends BaseActivity implements UserListView {
 //        return emailTextFieldLayout;
 //    }
 
-    private void showEmailsDialog(List<EmailModel> lsEmailModels) {
+    @Override
+    public void showEmailsDialog(Collection<EmailModel> lsEmailModels) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        List<EmailModel> emailModels = new ArrayList<>(lsEmailModels);
         builder.setTitle("List Emails")
-                .setView(createDialogView(lsEmailModels))
+                .setView(createDialogView(emailModels))
                 .setCancelable(false)
                 .setPositiveButton("OK", ((dialog, which) -> dialog.dismiss()))
                 .create().show();
@@ -370,7 +384,7 @@ public class MainActivity extends BaseActivity implements UserListView {
 
     @Override
     public void viewUser(UserModel userModel) {
-        showEmailsDialog(userModel.getEmailModels());
+        userListPresenter.displayEmails(userModel);
     }
 
     @Override

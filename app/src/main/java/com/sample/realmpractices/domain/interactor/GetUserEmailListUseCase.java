@@ -15,16 +15,22 @@ import rx.Observable;
 
 public class GetUserEmailListUseCase extends UseCase<List<Email>> {
     private EmailRepository emailRepository;
-    private int uid;
+    private int uid = 0;
 
-    public GetUserEmailListUseCase(int uid, EmailRepository emailRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    public GetUserEmailListUseCase(EmailRepository emailRepository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
         super(threadExecutor, postExecutionThread);
         this.emailRepository = emailRepository;
+    }
+
+    public GetUserEmailListUseCase setId(int uid) {
         this.uid = uid;
+        return this;
     }
 
     @Override
     protected Observable<List<Email>> buildUseCaseObservable() {
-        return emailRepository.emailsByUser(uid);
+        return Observable.create(subscriber -> {
+            subscriber.onNext(emailRepository.emailsByUser(uid));
+        });
     }
 }

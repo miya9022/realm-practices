@@ -1,8 +1,10 @@
 package com.sample.realmpractices.data.database;
 
+import com.sample.realmpractices.data.entity.EmailEntity;
 import com.sample.realmpractices.data.entity.UserEntity;
 
-import io.realm.Realm;
+import java.util.List;
+
 import rx.Observable;
 
 /**
@@ -15,9 +17,7 @@ public class UserHandlerImpl implements UserHandler {
 
     public UserHandlerImpl() {
         realmProvider = new RealmProvider();
-        if (Realm.getDefaultInstance() == null) {
-            realmProvider.setupRealmConfig();
-        }
+        realmProvider.setupRealmConfig();
     }
 
     @Override
@@ -31,7 +31,12 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public void delete(final int uid) {
+    public void deleteUser(final int uid) {
         realmProvider.deleteById(UserEntity.class, uid);
+    }
+
+    @Override
+    public List<EmailEntity> getEmailsByUserId(int userId) {
+        return ((UserEntity) realmProvider.getRealmObjectById(UserEntity.class, "id", userId)).getEmails();
     }
 }

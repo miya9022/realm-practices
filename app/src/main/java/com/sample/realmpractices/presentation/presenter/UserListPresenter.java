@@ -1,9 +1,13 @@
 package com.sample.realmpractices.presentation.presenter;
 
+import com.sample.realmpractices.domain.Email;
 import com.sample.realmpractices.domain.User;
+import com.sample.realmpractices.domain.interactor.GetUserEmailListUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserListUseCase;
 import com.sample.realmpractices.domain.interactor.DefaultSubscriber;
+import com.sample.realmpractices.presentation.mapper.EmailModelDataMapping;
 import com.sample.realmpractices.presentation.mapper.UserModelDataMapping;
+import com.sample.realmpractices.presentation.model.EmailModel;
 import com.sample.realmpractices.presentation.model.UserModel;
 import com.sample.realmpractices.presentation.view.UserListView;
 
@@ -19,12 +23,18 @@ public class UserListPresenter implements Presenter {
     private UserListView userListView;
 
     private final GetUserListUseCase getUserListUseCase;
+    private final GetUserEmailListUseCase getUserEmailListUseCase;
     private final UserModelDataMapping userModelDataMapping;
+    private final EmailModelDataMapping emailModelDataMapping;
 
     public UserListPresenter(GetUserListUseCase getUserListUseCase,
-                             UserModelDataMapping userModelDataMapping) {
+                             GetUserEmailListUseCase getUserEmailListUseCase,
+                             UserModelDataMapping userModelDataMapping,
+                             EmailModelDataMapping emailModelDataMapping) {
         this.getUserListUseCase = getUserListUseCase;
+        this.getUserEmailListUseCase = getUserEmailListUseCase;
         this.userModelDataMapping = userModelDataMapping;
+        this.emailModelDataMapping = emailModelDataMapping;
     }
 
     public void setUserListView(UserListView userListView) {
@@ -49,7 +59,13 @@ public class UserListPresenter implements Presenter {
     private void loadUserList() {
         hideViewRetry();
         showViewLoading();
-        this.getUserListUseCase.execute(new UserListSubscriber());
+        getUserListUseCase.execute(new UserListSubscriber());
+    }
+
+    public void displayEmails(UserModel userModel) {
+        getUserEmailListUseCase
+                .setId(userModel.getId())
+                .execute(new EmailListSubscriber());
     }
 
     public void onUserClicked(UserModel userModel) {
@@ -81,6 +97,11 @@ public class UserListPresenter implements Presenter {
         userListView.renderUserList(userModelCollection);
     }
 
+    private void showEmailsToView(Collection<Email> emailCollection) {
+        final Collection<EmailModel> emailModelCollection = emailModelDataMapping.parseList(emailCollection);
+        userListView.showEmailsDialog(emailModelCollection);
+    }
+
     private final class UserListSubscriber extends DefaultSubscriber<List<User>> {
 
         @Override
@@ -98,6 +119,24 @@ public class UserListPresenter implements Presenter {
         @Override
         public void onNext(List<User> users) {
             UserListPresenter.this.showUserCollectionInView(users);
+        }
+    }
+
+    private final class EmailListSubscriber extends DefaultSubscriber<List<Email>> {
+
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            UserListPresenter.this.showErrorMessage(e.getClass().getSimpleName() + ": " + e.getLocalizedMessage());
+        }
+
+        @Override
+        public void onNext(List<Email> emails) {
+            UserListPresenter.this.showEmailsToView(emails);
         }
     }
 }

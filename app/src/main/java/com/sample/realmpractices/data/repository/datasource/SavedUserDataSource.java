@@ -4,12 +4,12 @@ import com.annimon.stream.Stream;
 import com.sample.realmpractices.data.database.UserHandler;
 import com.sample.realmpractices.data.entity.UserEntity;
 import com.sample.realmpractices.data.net.WebServiceApi;
+import com.sample.realmpractices.data.repository.transaction.ListUserEntitySubscriber;
+import com.sample.realmpractices.data.repository.transaction.PutUserEntityTransaction;
 
 import java.util.List;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by app on 3/9/17.
@@ -18,19 +18,22 @@ import rx.schedulers.Schedulers;
 class SavedUserDataSource implements UserDataSource {
     private final WebServiceApi webServiceApi;
     private final UserHandler userHandler;
+    private final PutUserEntityTransaction putUserEntityTransaction;
 
-    SavedUserDataSource(UserHandler userHandler, WebServiceApi webServiceApi) {
+    SavedUserDataSource(UserHandler userHandler,
+                        WebServiceApi webServiceApi,
+                        PutUserEntityTransaction putUserEntityTransaction) {
         this.userHandler = userHandler;
         this.webServiceApi = webServiceApi;
+        this.putUserEntityTransaction = putUserEntityTransaction;
     }
 
     @Override
     public Observable<List<UserEntity>> userEntities() {
         Observable<List<UserEntity>> listObservable = webServiceApi.getAllUsers();
-        listObservable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::insertDataToRealm);
+        putUserEntityTransaction
+                .setTransaction(listObservable)
+                .execute(new ListUserEntitySubscriber(userHandler));
         return listObservable;
     }
 

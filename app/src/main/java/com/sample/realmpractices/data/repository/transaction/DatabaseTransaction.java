@@ -27,10 +27,13 @@ public abstract class DatabaseTransaction<T extends RealmObject> {
     abstract Observable<T> transactionObservable();
 
     public void execute(Subscriber<T> useCaseSubscriber) {
-        this.subscription = this.transactionObservable()
-                .subscribeOn(Schedulers.from(threadExecutor))
-                .observeOn(postExecutionThread.getScheduler())
-                .subscribe(useCaseSubscriber);
+        Observable<T> transaction = transactionObservable();
+        if(transaction != null) {
+            this.subscription = transaction
+                    .subscribeOn(Schedulers.from(threadExecutor))
+                    .observeOn(postExecutionThread.getScheduler())
+                    .subscribe(useCaseSubscriber);
+        }
     }
 
     public void unsubscribe() {

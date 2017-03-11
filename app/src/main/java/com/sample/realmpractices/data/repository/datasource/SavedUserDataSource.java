@@ -1,11 +1,10 @@
 package com.sample.realmpractices.data.repository.datasource;
 
-import com.annimon.stream.Stream;
 import com.sample.realmpractices.data.database.UserHandler;
 import com.sample.realmpractices.data.entity.UserEntity;
 import com.sample.realmpractices.data.net.WebServiceApi;
-import com.sample.realmpractices.data.repository.transaction.ListUserEntitySubscriber;
-import com.sample.realmpractices.data.repository.transaction.PutUserEntityTransaction;
+import com.sample.realmpractices.data.repository.transaction.PutListUserEntitySubscriber;
+import com.sample.realmpractices.data.repository.transaction.PutListUserEntityTransaction;
 
 import java.util.List;
 
@@ -18,27 +17,23 @@ import rx.Observable;
 class SavedUserDataSource implements UserDataSource {
     private final WebServiceApi webServiceApi;
     private final UserHandler userHandler;
-    private final PutUserEntityTransaction putUserEntityTransaction;
+    private final PutListUserEntityTransaction putListUserEntityTransaction;
 
     SavedUserDataSource(UserHandler userHandler,
                         WebServiceApi webServiceApi,
-                        PutUserEntityTransaction putUserEntityTransaction) {
+                        PutListUserEntityTransaction putListUserEntityTransaction) {
         this.userHandler = userHandler;
         this.webServiceApi = webServiceApi;
-        this.putUserEntityTransaction = putUserEntityTransaction;
+        this.putListUserEntityTransaction = putListUserEntityTransaction;
     }
 
     @Override
     public Observable<List<UserEntity>> userEntities() {
         Observable<List<UserEntity>> listObservable = webServiceApi.getAllUsers();
-        putUserEntityTransaction
+        putListUserEntityTransaction
                 .setTransaction(listObservable)
-                .execute(new ListUserEntitySubscriber(userHandler));
+                .execute(new PutListUserEntitySubscriber(userHandler));
         return listObservable;
-    }
-
-    private void insertDataToRealm(List<UserEntity> userEntities) {
-        Stream.of(userEntities).forEach(userHandler::put);
     }
 
     @Override

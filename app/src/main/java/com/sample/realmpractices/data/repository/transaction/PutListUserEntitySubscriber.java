@@ -11,11 +11,11 @@ import java.util.List;
  * Created by app on 3/11/17.
  */
 
-public class ListUserEntitySubscriber extends DefaultSubscriber<List<UserEntity>> {
+public class PutListUserEntitySubscriber extends DefaultSubscriber<List<UserEntity>> {
 
     private final UserHandler userHandler;
 
-    public ListUserEntitySubscriber(UserHandler userHandler) {
+    public PutListUserEntitySubscriber(UserHandler userHandler) {
         this.userHandler = userHandler;
     }
 

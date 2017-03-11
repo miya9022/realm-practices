@@ -3,7 +3,6 @@ package com.sample.realmpractices.data.repository.transaction;
 import com.sample.realmpractices.domain.executor.PostExecutionThread;
 import com.sample.realmpractices.domain.executor.ThreadExecutor;
 
-import io.realm.RealmObject;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -14,7 +13,7 @@ import rx.subscriptions.Subscriptions;
  * Created by app on 3/10/17.
  */
 
-public abstract class DatabaseTransaction<T extends RealmObject> {
+public abstract class DatabaseTransaction<T> {
     private PostExecutionThread postExecutionThread;
     private ThreadExecutor threadExecutor;
     private Subscription subscription = Subscriptions.empty();

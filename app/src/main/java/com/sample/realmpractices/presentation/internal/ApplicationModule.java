@@ -11,7 +11,7 @@ import com.sample.realmpractices.data.repository.EmailDataRepository;
 import com.sample.realmpractices.data.repository.UserDataRepository;
 import com.sample.realmpractices.data.repository.datasource.EmailDataSourceFactory;
 import com.sample.realmpractices.data.repository.datasource.UserDataSourceFactory;
-import com.sample.realmpractices.data.repository.transaction.PutUserEntityTransaction;
+import com.sample.realmpractices.data.repository.transaction.PutListUserEntityTransaction;
 import com.sample.realmpractices.domain.executor.PostExecutionThread;
 import com.sample.realmpractices.domain.executor.ThreadExecutor;
 import com.sample.realmpractices.domain.repository.EmailRepository;
@@ -50,7 +50,7 @@ abstract class ApplicationModule {
     UserRepository provideUserRepository() {
         return new UserDataRepository(
                 new UserDataSourceFactory(provideUserHandler(),
-                        new PutUserEntityTransaction(providePostExecutionThread(), provideThreadExecutor())),
+                        new PutListUserEntityTransaction(providePostExecutionThread(), provideThreadExecutor())),
                 new UserEntityDataMapping());
     }
 

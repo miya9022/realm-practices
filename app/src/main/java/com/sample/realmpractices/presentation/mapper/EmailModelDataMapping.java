@@ -29,8 +29,7 @@ public class EmailModelDataMapping {
 
     public List<EmailModel> parseList(Collection<Email> lsEmail) {
         List<EmailModel> emailModels = new ArrayList<>();
-        Stream.of(lsEmail)
-            .forEach(email -> emailModels.add(parse(email)));
+        Stream.of(lsEmail).forEach(email -> emailModels.add(parse(email)));
         return emailModels;
     }
 }

@@ -3,6 +3,7 @@ package com.sample.realmpractices.data.repository.datasource;
 import com.sample.realmpractices.data.database.UserHandler;
 import com.sample.realmpractices.data.entity.UserEntity;
 import com.sample.realmpractices.data.net.WebServiceApi;
+import com.sample.realmpractices.data.repository.transaction.DatabaseTransaction;
 import com.sample.realmpractices.data.repository.transaction.PutListUserEntitySubscriber;
 import com.sample.realmpractices.data.repository.transaction.PutListUserEntityTransaction;
 
@@ -17,20 +18,22 @@ import rx.Observable;
 class SavedUserDataSource implements UserDataSource {
     private final WebServiceApi webServiceApi;
     private final UserHandler userHandler;
-    private final PutListUserEntityTransaction putListUserEntityTransaction;
+    private final DatabaseTransaction databaseTransaction;
 
     SavedUserDataSource(UserHandler userHandler,
                         WebServiceApi webServiceApi,
-                        PutListUserEntityTransaction putListUserEntityTransaction) {
+                        DatabaseTransaction databaseTransaction) {
         this.userHandler = userHandler;
         this.webServiceApi = webServiceApi;
-        this.putListUserEntityTransaction = putListUserEntityTransaction;
+        this.databaseTransaction = databaseTransaction;
     }
 
     @Override
     public Observable<List<UserEntity>> userEntities() {
         Observable<List<UserEntity>> listObservable = webServiceApi.getAllUsers();
-        putListUserEntityTransaction
+        new PutListUserEntityTransaction(
+                    databaseTransaction.getPostExecutionThread(), databaseTransaction.getThreadExecutor()
+                )
                 .setTransaction(listObservable)
                 .execute(new PutListUserEntitySubscriber(userHandler));
         return listObservable;
@@ -39,5 +42,10 @@ class SavedUserDataSource implements UserDataSource {
     @Override
     public Observable<UserEntity> entityDetail(int userId) {
         return userHandler.get(userId);
+    }
+
+    @Override
+    public void deleteUser(int userId) {
+        userHandler.deleteUser(userId);
     }
 }

@@ -18,6 +18,14 @@ public abstract class DatabaseTransaction<T> {
     private ThreadExecutor threadExecutor;
     private Subscription subscription = Subscriptions.empty();
 
+    public PostExecutionThread getPostExecutionThread() {
+        return postExecutionThread;
+    }
+
+    public ThreadExecutor getThreadExecutor() {
+        return threadExecutor;
+    }
+
     public DatabaseTransaction(PostExecutionThread postExecutionThread, ThreadExecutor threadExecutor) {
         this.postExecutionThread = postExecutionThread;
         this.threadExecutor = threadExecutor;

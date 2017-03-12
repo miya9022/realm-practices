@@ -1,6 +1,7 @@
 package com.sample.realmpractices.presentation.view.activity;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -8,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -81,22 +83,22 @@ public class MainActivity extends BaseActivity implements UserListView {
         rcvUsers.addOnItemTouchListener(new RecyclerTouchListener(this, rcvUsers,
                 (view, position) -> userListPresenter.onUserClicked(userAdapter.getPosition(position))));
 
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//            @Override
-//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-//                final int position = viewHolder.getAdapterPosition();
-//                if (direction == ItemTouchHelper.LEFT) {
-//                    UserModel u = adapter.getPosition(position);
-//                    realmProvider.deleteById(UserModel.class, u.getId());
-//                }
-//            }
-//        });
-//        itemTouchHelper.attachToRecyclerView(rcvUsers);
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                final int position = viewHolder.getAdapterPosition();
+                if (direction == ItemTouchHelper.LEFT) {
+                    UserModel userModel = userAdapter.getPosition(position);
+
+                }
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(rcvUsers);
     }
 
 //    private void setupSomeListeners() {
@@ -300,9 +302,13 @@ public class MainActivity extends BaseActivity implements UserListView {
             TextView tv = (TextView) holder.itemView;
             final EmailModel emailModel = lsEmailModels.get(position);
             if(emailModel.getActive() == 1) {
-                tv.setTextColor(getColor(R.color.cardview_dark_background));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tv.setTextColor(getColor(R.color.cardview_dark_background));
+                }
             } else {
-                tv.setTextColor(getColor(android.R.color.darker_gray));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tv.setTextColor(getColor(android.R.color.darker_gray));
+                }
             }
             tv.setText(emailModel.getEmail());
         }

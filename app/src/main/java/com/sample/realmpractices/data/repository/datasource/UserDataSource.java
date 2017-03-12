@@ -14,4 +14,6 @@ public interface UserDataSource {
     Observable<List<UserEntity>> userEntities();
 
     Observable<UserEntity> entityDetail(final int userId);
+
+    void deleteUser(int userId);
 }

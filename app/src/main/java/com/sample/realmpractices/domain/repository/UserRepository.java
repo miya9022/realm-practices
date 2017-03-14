@@ -15,4 +15,6 @@ public interface UserRepository {
     Observable<List<User>> users();
 
     Observable<User> user(final int uid);
+
+    void deleteUser(final int uid);
 }

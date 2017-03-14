@@ -63,8 +63,7 @@ public class MainActivity extends BaseActivity implements UserListView {
                 new GetUserEmailListUseCase(
                     getApplicationComponent().getEmailRepository(),
                     getApplicationComponent().getThreadExecutor(),
-                    getApplicationComponent().getPostExecutionThread()
-                ),
+                    getApplicationComponent().getPostExecutionThread()),
                 new UserModelDataMapping(),
                 new EmailModelDataMapping());
         userListPresenter.setUserListView(this);
@@ -94,7 +93,8 @@ public class MainActivity extends BaseActivity implements UserListView {
                 final int position = viewHolder.getAdapterPosition();
                 if (direction == ItemTouchHelper.LEFT) {
                     UserModel userModel = userAdapter.getPosition(position);
-
+                    getApplicationComponent().getUserRepository().deleteUser(userModel.getId());
+                    userAdapter.deleteUser(userModel.getId());
                 }
             }
         });

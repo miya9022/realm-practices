@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.annimon.stream.Stream;
 import com.sample.realmpractices.R;
 import com.sample.realmpractices.presentation.model.UserModel;
 
@@ -70,16 +71,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 //        }
 //    }
 //
-//    public void deleteUser(int id) {
-//        Stream.of(userModels)
-//            .filter(user -> id == user.getId())
-//            .findFirst()
-//            .ifPresent(user -> {
-//                int i = userModels.indexOf(user);
-//                userModels.remove(user);
-//                notifyItemRangeRemoved(i, 1);
-//            });
-//    }
+    public void deleteUser(int id) {
+        Stream.of(userModels)
+            .filter(user -> id == user.getId())
+            .findFirst()
+            .ifPresent(user -> {
+                int i = userModels.indexOf(user);
+                userModels.remove(user);
+                notifyItemRangeRemoved(i, 1);
+            });
+    }
 
     protected class ViewHolder extends RecyclerView.ViewHolder {
 

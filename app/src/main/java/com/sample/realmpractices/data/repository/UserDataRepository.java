@@ -35,4 +35,10 @@ public class UserDataRepository implements UserRepository {
         final UserDataSource userDataSource = userDataSourceFactory.createDataSource();
         return userDataSource.entityDetail(uid).map(userEntityDataMapping::replicateUserFromRealm);
     }
+
+    @Override
+    public void deleteUser(int uid) {
+        final UserDataSource userDataSource = userDataSourceFactory.createDataSource();
+        userDataSource.deleteUser(uid);
+    }
 }

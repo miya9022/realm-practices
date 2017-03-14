@@ -15,7 +15,7 @@ out/
 
 # Gradle files
 .gradle/
-.gradle/2.14.1/
+.gradle/2.14.1/taskArtifacts
 build/
 
 # Local configuration file (sdk path, etc)

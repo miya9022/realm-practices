@@ -95,6 +95,7 @@ public class MainActivity extends BaseActivity implements UserListView {
                     UserModel userModel = userAdapter.getPosition(position);
                     getApplicationComponent().getUserRepository().deleteUser(userModel.getId());
                     userAdapter.deleteUser(userModel.getId());
+                    searchAdapter.updateData(userAdapter.getUsers());
                 }
             }
         });

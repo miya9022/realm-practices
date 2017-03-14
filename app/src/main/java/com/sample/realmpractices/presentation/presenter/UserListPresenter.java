@@ -2,6 +2,7 @@ package com.sample.realmpractices.presentation.presenter;
 
 import com.sample.realmpractices.domain.Email;
 import com.sample.realmpractices.domain.User;
+import com.sample.realmpractices.domain.interactor.DeleteUserUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserEmailListUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserListUseCase;
 import com.sample.realmpractices.domain.interactor.DefaultSubscriber;
@@ -24,15 +25,18 @@ public class UserListPresenter implements Presenter {
 
     private final GetUserListUseCase getUserListUseCase;
     private final GetUserEmailListUseCase getUserEmailListUseCase;
+    private final DeleteUserUseCase deleteUserUseCase;
     private final UserModelDataMapping userModelDataMapping;
     private final EmailModelDataMapping emailModelDataMapping;
 
     public UserListPresenter(GetUserListUseCase getUserListUseCase,
                              GetUserEmailListUseCase getUserEmailListUseCase,
+                             DeleteUserUseCase deleteUserUseCase,
                              UserModelDataMapping userModelDataMapping,
                              EmailModelDataMapping emailModelDataMapping) {
         this.getUserListUseCase = getUserListUseCase;
         this.getUserEmailListUseCase = getUserEmailListUseCase;
+        this.deleteUserUseCase = deleteUserUseCase;
         this.userModelDataMapping = userModelDataMapping;
         this.emailModelDataMapping = emailModelDataMapping;
     }
@@ -70,6 +74,10 @@ public class UserListPresenter implements Presenter {
 
     public void onUserClicked(UserModel userModel) {
         userListView.viewUser(userModel);
+    }
+
+    public void deleteUser(final UserModel userModel) {
+        userListView.deleteUser(userModel);
     }
 
     private void showViewLoading() {

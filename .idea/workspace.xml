@@ -13,6 +13,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LeakCanarySample/app/build.gradle" afterPath="$PROJECT_DIR$/../LeakCanarySample/app/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LeakCanarySample/build.gradle" afterPath="$PROJECT_DIR$/../LeakCanarySample/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../LeakCanarySample/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/../LeakCanarySample/gradle/wrapper/gradle-wrapper.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/UserDataRepository.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/UserDataRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/repository/UserRepository.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/repository/UserRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/presenter/UserListPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/presenter/UserListPresenter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/UserListView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/UserListView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/activity/MainActivity.java" />
     </list>
     <ignored path="RealmPractices.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,45 +50,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserDataSource.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/datasource/UserDataSource.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="17" column="32" selection-start-line="17" selection-start-column="32" selection-end-line="17" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PostExecutionThread.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/executor/PostExecutionThread.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="97" column="62" selection-start-line="97" selection-start-column="62" selection-end-line="97" selection-end-column="62" />
+            <state relative-caret-position="447">
+              <caret line="109" column="86" selection-start-line="109" selection-start-column="86" selection-end-line="109" selection-end-column="86" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserAdapter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/adapter/UserAdapter.java">
+      <file leaf-file-name="UserListView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/UserListView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="503">
-              <caret line="53" column="41" selection-start-line="53" selection-start-column="41" selection-end-line="53" selection-end-column="41" />
-              <folding>
-                <element signature="e#1410#1411#0" expanded="true" />
-                <element signature="e#1443#1444#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="240">
+              <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -90,32 +73,25 @@
       <file leaf-file-name="UserListPresenter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/presenter/UserListPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="26" column="43" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
+            <state relative-caret-position="371">
+              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#1744#1745#0" expanded="false" />
-                <element signature="e#1792#1793#0" expanded="false" />
-                <element signature="e#1920#1921#0" expanded="false" />
-                <element signature="e#1960#1961#0" expanded="false" />
-                <element signature="e#1992#1993#0" expanded="false" />
-                <element signature="e#2022#2023#0" expanded="false" />
-                <element signature="e#2418#2419#0" expanded="false" />
-                <element signature="e#2466#2467#0" expanded="false" />
-                <element signature="e#2504#2505#0" expanded="false" />
-                <element signature="e#2546#2547#0" expanded="false" />
-                <element signature="e#2584#2585#0" expanded="false" />
-                <element signature="e#2626#2627#0" expanded="false" />
-                <element signature="e#2662#2663#0" expanded="false" />
-                <element signature="e#2702#2703#0" expanded="false" />
-                <element signature="e#2738#2739#0" expanded="false" />
-                <element signature="e#2778#2779#0" expanded="false" />
-                <element signature="e#2828#2829#0" expanded="false" />
-                <element signature="e#2872#2873#0" expanded="false" />
-                <element signature="e#3508#3509#0" expanded="false" />
-                <element signature="e#3572#3573#0" expanded="false" />
-                <element signature="e#4424#4425#0" expanded="false" />
-                <element signature="e#4495#4496#0" expanded="false" />
+                <element signature="e#2766#2767#0" expanded="true" />
+                <element signature="e#2816#2817#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeleteUserUseCase.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/DeleteUserUseCase.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#710#711#0" expanded="true" />
+                <element signature="e#743#744#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -131,11 +107,41 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="UserRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/repository/UserRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserDataRepository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/UserDataRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SavedUserDataSource.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/datasource/SavedUserDataSource.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="GetUserListUseCase.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/GetUserListUseCase.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+            <state relative-caret-position="150">
+              <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="42" />
               <folding>
                 <element signature="e#811#812#0" expanded="true" />
                 <element signature="e#856#857#0" expanded="true" />
@@ -149,26 +155,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
               <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/repository/UserRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserDataRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/UserDataRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="29" column="79" selection-start-line="29" selection-start-column="79" selection-end-line="29" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -2147,9 +2133,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/EmailDataRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/internal/ApplicationComponent.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/entity/mapping/EmailEntityDataMapping.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/UserListView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/GetUserEmailListUseCase.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/presenter/UserListPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/DefaultRealmObjectSubcriber.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/activity/BaseActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/database/UserHandlerImpl.java" />
@@ -2171,10 +2155,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/transaction/DatabaseTransaction.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/transaction/DeleteUserEntityTransaction.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/datasource/SavedUserDataSource.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/adapter/UserAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/UserListView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/repository/UserRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/UserDataRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/DeleteUserUseCase.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/adapter/UserAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/presenter/UserListPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/activity/MainActivity.java" />
       </list>
     </option>
@@ -3300,13 +3286,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/presenter/UserListPresenter.java</url>
-          <line>138</line>
+          <line>146</line>
           <properties />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/presenter/UserListPresenter.java</url>
-          <line>100</line>
+          <line>108</line>
           <properties />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
@@ -3334,13 +3320,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/activity/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.realm/realm-android-library/2.3.1/359e2151410ddd89bd71ad92cef3d51d20a7e783/realm-android-library-2.3.1-sources.jar!/io/realm/Realm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
@@ -3511,13 +3490,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/UserListView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="16" column="9" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/mapper/EmailModelDataMapping.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -3576,13 +3548,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/transaction/DeleteUserEntityTransaction.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/datasource/SavedUserDataSource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/transaction/DatabaseTransaction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -3604,7 +3569,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/DeleteUserUseCase.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/datasource/UserDataSource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -3621,42 +3585,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/presenter/UserListPresenter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/adapter/UserAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="26" column="43" selection-start-line="26" selection-start-column="43" selection-end-line="26" selection-end-column="43" />
+        <state relative-caret-position="503">
+          <caret line="53" column="41" selection-start-line="53" selection-start-column="41" selection-end-line="53" selection-end-column="41" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1744#1745#0" expanded="false" />
-            <element signature="e#1792#1793#0" expanded="false" />
-            <element signature="e#1920#1921#0" expanded="false" />
-            <element signature="e#1960#1961#0" expanded="false" />
-            <element signature="e#1992#1993#0" expanded="false" />
-            <element signature="e#2022#2023#0" expanded="false" />
-            <element signature="e#2418#2419#0" expanded="false" />
-            <element signature="e#2466#2467#0" expanded="false" />
-            <element signature="e#2504#2505#0" expanded="false" />
-            <element signature="e#2546#2547#0" expanded="false" />
-            <element signature="e#2584#2585#0" expanded="false" />
-            <element signature="e#2626#2627#0" expanded="false" />
-            <element signature="e#2662#2663#0" expanded="false" />
-            <element signature="e#2702#2703#0" expanded="false" />
-            <element signature="e#2738#2739#0" expanded="false" />
-            <element signature="e#2778#2779#0" expanded="false" />
-            <element signature="e#2828#2829#0" expanded="false" />
-            <element signature="e#2872#2873#0" expanded="false" />
-            <element signature="e#3508#3509#0" expanded="false" />
-            <element signature="e#3572#3573#0" expanded="false" />
-            <element signature="e#4424#4425#0" expanded="false" />
-            <element signature="e#4495#4496#0" expanded="false" />
+            <element signature="e#1410#1411#0" expanded="true" />
+            <element signature="e#1443#1444#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/UseCase.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/LoadDataView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="27" column="62" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
+        <state relative-caret-position="120">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -3669,26 +3612,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/repository/UserRepository.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/UserListView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/UserDataRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="29" column="79" selection-start-line="29" selection-start-column="79" selection-end-line="29" selection-end-column="79" />
+        <state relative-caret-position="240">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/GetUserListUseCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="26" column="38" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
+        <state relative-caret-position="150">
+          <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="42" />
           <folding>
             <element signature="e#811#812#0" expanded="true" />
             <element signature="e#856#857#0" expanded="true" />
@@ -3696,22 +3631,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/activity/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/UseCase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="97" column="62" selection-start-line="97" selection-start-column="62" selection-end-line="97" selection-end-column="62" />
+        <state relative-caret-position="300">
+          <caret line="27" column="62" selection-start-line="27" selection-start-column="62" selection-end-line="27" selection-end-column="62" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/adapter/UserAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/UserDataRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="53" column="41" selection-start-line="53" selection-start-column="41" selection-end-line="53" selection-end-column="41" />
+        <state relative-caret-position="510">
+          <caret line="42" column="19" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/data/repository/datasource/SavedUserDataSource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/repository/UserRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/domain/interactor/DeleteUserUseCase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
           <folding>
-            <element signature="e#1410#1411#0" expanded="true" />
-            <element signature="e#1443#1444#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#710#711#0" expanded="true" />
+            <element signature="e#743#744#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/presenter/UserListPresenter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+          <folding>
+            <element signature="e#2766#2767#0" expanded="true" />
+            <element signature="e#2816#2817#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/sample/realmpractices/presentation/view/activity/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="109" column="86" selection-start-line="109" selection-start-column="86" selection-end-line="109" selection-end-column="86" />
+          <folding />
         </state>
       </provider>
     </entry>

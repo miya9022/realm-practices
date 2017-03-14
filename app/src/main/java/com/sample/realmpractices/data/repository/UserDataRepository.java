@@ -37,8 +37,9 @@ public class UserDataRepository implements UserRepository {
     }
 
     @Override
-    public void deleteUser(int uid) {
+    public int deleteUser(int uid) {
         final UserDataSource userDataSource = userDataSourceFactory.createDataSource();
         userDataSource.deleteUser(uid);
+        return uid;
     }
 }

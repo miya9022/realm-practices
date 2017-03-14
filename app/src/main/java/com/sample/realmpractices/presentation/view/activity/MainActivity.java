@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sample.realmpractices.R;
+import com.sample.realmpractices.domain.interactor.DeleteUserUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserEmailListUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserListUseCase;
 import com.sample.realmpractices.presentation.mapper.EmailModelDataMapping;
@@ -64,6 +65,10 @@ public class MainActivity extends BaseActivity implements UserListView {
                     getApplicationComponent().getEmailRepository(),
                     getApplicationComponent().getThreadExecutor(),
                     getApplicationComponent().getPostExecutionThread()),
+                new DeleteUserUseCase(
+                    getApplicationComponent().getUserRepository(),
+                    getApplicationComponent().getThreadExecutor(),
+                    getApplicationComponent().getPostExecutionThread()),
                 new UserModelDataMapping(),
                 new EmailModelDataMapping());
         userListPresenter.setUserListView(this);
@@ -93,9 +98,7 @@ public class MainActivity extends BaseActivity implements UserListView {
                 final int position = viewHolder.getAdapterPosition();
                 if (direction == ItemTouchHelper.LEFT) {
                     UserModel userModel = userAdapter.getPosition(position);
-                    getApplicationComponent().getUserRepository().deleteUser(userModel.getId());
-                    userAdapter.deleteUser(userModel.getId());
-                    searchAdapter.updateData(userAdapter.getUsers());
+                    userListPresenter.deleteUser(userModel);
                 }
             }
         });
@@ -250,6 +253,13 @@ public class MainActivity extends BaseActivity implements UserListView {
                 .setCancelable(false)
                 .setPositiveButton("OK", ((dialog, which) -> dialog.dismiss()))
                 .create().show();
+    }
+
+    @Override
+    public void deleteUser(UserModel userModel) {
+        getApplicationComponent().getUserRepository().deleteUser(userModel.getId());
+        userAdapter.deleteUser(userModel.getId());
+        searchAdapter.updateData(userAdapter.getUsers());
     }
 
     private View createDialogView(List<EmailModel> lsEmailModels) {

@@ -48,4 +48,9 @@ class UserSavedDataSource implements UserDataSource {
     public void deleteUser(int userId) {
         userHandler.deleteUser(userId);
     }
+
+    @Override
+    public Observable<UserEntity> insertUser(UserEntity userEntity) {
+        return userHandler.put(userEntity);
+    }
 }

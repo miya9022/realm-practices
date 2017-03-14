@@ -16,4 +16,6 @@ public interface UserDataSource {
     Observable<UserEntity> entityDetail(final int userId);
 
     void deleteUser(int userId);
+
+    Observable<UserEntity> insertUser(UserEntity userEntity);
 }

@@ -34,10 +34,11 @@ public class RealmProvider {
         return getDefaultInstance().where(clazz).max(fieldName).intValue();
     }
 
-    public void insert(RealmObject o) {
+    public RealmObject insert(RealmObject o) {
         getDefaultInstance().executeTransactionAsync(realm -> {
             realm.copyToRealm(o);
         }, () -> Log.d(TAG, "insert success"), (e) -> Log.d(TAG, "insert failed caused by " + e.getMessage()));
+        return o;
     }
 
     public void deleteFirst(Class<? extends RealmObject> c) {

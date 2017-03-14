@@ -1,15 +1,13 @@
 package com.sample.realmpractices.presentation.model;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by app on 2/13/17.
  */
 
 public class UserModel {
-    @PrimaryKey
     private int id;
 
     private String name;
@@ -17,6 +15,7 @@ public class UserModel {
     private List<EmailModel> emails;
 
     public UserModel() {
+        emails = new ArrayList<>();
     }
 
     public int getId() {

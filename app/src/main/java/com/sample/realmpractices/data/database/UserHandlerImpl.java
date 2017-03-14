@@ -26,8 +26,8 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public void put(UserEntity userEntity) {
-        realmProvider.insert(userEntity);
+    public Observable<UserEntity> put(UserEntity userEntity) {
+        return Observable.just((UserEntity) realmProvider.insert(userEntity));
     }
 
     @Override

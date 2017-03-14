@@ -17,4 +17,6 @@ public interface UserListView extends LoadDataView {
     void showEmailsDialog(Collection<EmailModel> emailModels);
 
     void deleteUser(int uid);
+
+    void insertUser(UserModel userModel);
 }

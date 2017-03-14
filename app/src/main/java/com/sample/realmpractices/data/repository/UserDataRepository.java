@@ -1,5 +1,6 @@
 package com.sample.realmpractices.data.repository;
 
+import com.sample.realmpractices.data.entity.UserEntity;
 import com.sample.realmpractices.data.entity.mapping.UserEntityDataMapping;
 import com.sample.realmpractices.data.repository.datasource.UserDataSource;
 import com.sample.realmpractices.data.repository.datasource.UserDataSourceFactory;
@@ -41,5 +42,11 @@ public class UserDataRepository implements UserRepository {
         final UserDataSource userDataSource = userDataSourceFactory.createDataSource();
         userDataSource.deleteUser(uid);
         return uid;
+    }
+
+    @Override
+    public Observable<User> insertUser(UserEntity userEntity) {
+        final UserDataSource userDataSource = userDataSourceFactory.createDataSource();
+        return userDataSource.insertUser(userEntity).map(userEntityDataMapping::replicateUserFromRealm);
     }
 }

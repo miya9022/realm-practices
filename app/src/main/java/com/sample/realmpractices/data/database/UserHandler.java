@@ -15,7 +15,7 @@ public interface UserHandler {
 
     Observable<UserEntity> get(final int userId);
 
-    void put(UserEntity userEntity);
+    Observable<UserEntity> put(UserEntity userEntity);
 
     void deleteUser(final int uid);
 

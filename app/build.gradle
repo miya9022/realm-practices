@@ -45,5 +45,6 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.2.4'
+    compile 'com.github.clans:fab:1.6.4'
     testCompile 'junit:junit:4.12'
 }

@@ -64,12 +64,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-//    public void addUser(UserModel u) {
-//        if (userModels != null) {
-//            userModels.add(u);
-//            notifyItemRangeInserted(userModels.size()-1, 1);
-//        }
-//    }
+    public void addUser(UserModel u) {
+        if (userModels != null) {
+            userModels.add(u);
+            notifyItemRangeInserted(userModels.size()-1, 1);
+        }
+    }
 //
     public void deleteUser(int id) {
         Stream.of(userModels)

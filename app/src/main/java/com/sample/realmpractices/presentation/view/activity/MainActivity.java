@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -18,11 +19,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.annimon.stream.Stream;
+import com.github.clans.fab.FloatingActionButton;
 import com.sample.realmpractices.R;
+import com.sample.realmpractices.data.entity.EmailEntity;
+import com.sample.realmpractices.data.entity.UserEntity;
+import com.sample.realmpractices.domain.interactor.CreateUserUseCase;
 import com.sample.realmpractices.domain.interactor.DeleteUserUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserEmailListUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserListUseCase;
@@ -48,6 +56,7 @@ public class MainActivity extends BaseActivity implements UserListView {
     private SearchAdapter searchAdapter;
 
     private RecyclerView rcvUsers;
+    private FloatingActionButton btnAddNewUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +65,8 @@ public class MainActivity extends BaseActivity implements UserListView {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupRecyclerView();
+        setupUseCase();
+
         userListPresenter = new UserListPresenter(
                 new GetUserListUseCase(
                     getApplicationComponent().getUserRepository(),
@@ -69,11 +80,14 @@ public class MainActivity extends BaseActivity implements UserListView {
                     getApplicationComponent().getUserRepository(),
                     getApplicationComponent().getThreadExecutor(),
                     getApplicationComponent().getPostExecutionThread()),
+                new CreateUserUseCase(
+                    getApplicationComponent().getUserRepository(),
+                    getApplicationComponent().getThreadExecutor(),
+                    getApplicationComponent().getPostExecutionThread()),
                 new UserModelDataMapping(),
                 new EmailModelDataMapping());
         userListPresenter.setUserListView(this);
         userListPresenter.initialize();
-
 //        loadDataToView();
 //        setupSomeListeners();
     }
@@ -103,6 +117,11 @@ public class MainActivity extends BaseActivity implements UserListView {
             }
         });
         itemTouchHelper.attachToRecyclerView(rcvUsers);
+    }
+
+    private void setupUseCase() {
+        btnAddNewUser = (FloatingActionButton) findViewById(R.id.add_new_user);
+        btnAddNewUser.setOnClickListener(this::showCreateUserDialog);
     }
 
 //    private void setupSomeListeners() {
@@ -145,104 +164,105 @@ public class MainActivity extends BaseActivity implements UserListView {
 //                (view, position) -> showEmailsDialog(adapter.getPosition(position).getEmailModels())));
 //    }
 
-//    private void showCreateUserDialog() {
-//        LinearLayout linearLayout = new LinearLayout(this);
-//        linearLayout.setLayoutParams(new ViewGroup.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.MATCH_PARENT
-//        ));
-//        linearLayout.setPadding(32, 32, 32, 32);
-//        linearLayout.setOrientation(LinearLayout.VERTICAL);
-//
-//        EditText edtName = new EditText(this);
-//        edtName.setLayoutParams(new LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT
-//        ));
-//        edtName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-//        edtName.setHint("Name");
-//        edtName.setTextColor(ContextCompat.getColor(this, android.R.color.background_dark));
-//        linearLayout.addView(edtName);
-//
-//        EditText edtAge = new EditText(this);
-//        edtAge.setLayoutParams(new LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT
-//        ));
-//        edtAge.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-//        edtAge.setHint("Age");
-//        edtAge.setInputType(InputType.TYPE_CLASS_NUMBER);
-//        edtAge.setTextColor(ContextCompat.getColor(this, android.R.color.background_dark));
-//        linearLayout.addView(edtAge);
-//
-//        FloatingActionButton addEmailTFLayoutButton = new FloatingActionButton(this);
-//        LinearLayout.LayoutParams addEmailTFLayoutButtonParams = new LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.WRAP_CONTENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT
-//        );
-//        addEmailTFLayoutButtonParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-//        addEmailTFLayoutButtonParams.setMargins(16, 16, 16, 16);
-//        addEmailTFLayoutButton.setImageResource(android.R.drawable.ic_input_add);
-//        addEmailTFLayoutButton.setLayoutParams(addEmailTFLayoutButtonParams);
-//        linearLayout.addView(addEmailTFLayoutButton);
-//
-//        List<EditText> lsEmailTF = new ArrayList<>();
-//        addEmailTFLayoutButton.setOnClickListener(v -> {
-//            FrameLayout containerView = (FrameLayout) replicateEmailTextField();
-//            lsEmailTF.add((EditText) containerView.getChildAt(0));
-//            linearLayout.addView(containerView);
-//        });
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Create UserModel")
-//                .setView(linearLayout)
-//                .setCancelable(false)
-//                .setPositiveButton("OK", (dialog, which) -> {
-//                    dialog.dismiss();
-//                    String name = edtName.getText().toString().trim();
-//                    String ageStr = edtAge.getText().toString().trim();
-//                    int age;
-//                    try {
-//                        age = ageStr.isEmpty() ? 0 : Integer.parseInt(ageStr);
-//                    } catch (NumberFormatException e) {
-//                        e.printStackTrace();
-//                        age = 0;
-//                    }
-//                    UserModel userModel = new UserModel(name, age);
-//                    Stream.of(lsEmailTF)
-//                            .filterNot(editText -> editText.toString().isEmpty())
-//                            .forEach(editText -> {
-//                                EmailModel emailModel = new EmailModel();
-//                                emailModel.setEmail(editText.getText().toString().trim());
-//                                emailModel.setActive(0);
-//                                userModel.addEmail(emailModel);
-//                            });
-//                })
-//                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
-//                .create().show();
-//    }
-//
-//    private View replicateEmailTextField() {
-//        FrameLayout emailTextFieldLayout = new FrameLayout(this);
-//        emailTextFieldLayout.setLayoutParams(new LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT
-//        ));
-//
-//        EditText emailTextField = new EditText(this);
-//        FrameLayout.LayoutParams emailTFParams = new FrameLayout.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT
-//        );
-//        emailTFParams.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
-//        emailTextField.setHint("EmailModel");
-//        emailTextField.setLayoutParams(emailTFParams);
-//        emailTextField.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
-//        emailTextField.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-//        emailTextField.setTextColor(ContextCompat.getColor(this, android.R.color.background_dark));
-//        emailTextFieldLayout.addView(emailTextField, 0);
-//        return emailTextFieldLayout;
-//    }
+    private void showCreateUserDialog(View view) {
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+        ));
+        linearLayout.setPadding(32, 32, 32, 32);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        EditText edtName = new EditText(this);
+        edtName.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+        edtName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        edtName.setHint("Name");
+        edtName.setTextColor(ContextCompat.getColor(this, android.R.color.background_dark));
+        linearLayout.addView(edtName);
+
+        EditText edtAge = new EditText(this);
+        edtAge.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+        edtAge.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        edtAge.setHint("Age");
+        edtAge.setInputType(InputType.TYPE_CLASS_NUMBER);
+        edtAge.setTextColor(ContextCompat.getColor(this, android.R.color.background_dark));
+        linearLayout.addView(edtAge);
+
+        FloatingActionButton addEmailTFLayoutButton = new FloatingActionButton(this);
+        LinearLayout.LayoutParams addEmailTFLayoutButtonParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        addEmailTFLayoutButtonParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        addEmailTFLayoutButtonParams.setMargins(16, 16, 16, 16);
+        addEmailTFLayoutButton.setImageResource(android.R.drawable.ic_input_add);
+        addEmailTFLayoutButton.setLayoutParams(addEmailTFLayoutButtonParams);
+        linearLayout.addView(addEmailTFLayoutButton);
+
+        List<EditText> lsEmailTF = new ArrayList<>();
+        addEmailTFLayoutButton.setOnClickListener(v -> {
+            FrameLayout containerView = (FrameLayout) replicateEmailTextField();
+            lsEmailTF.add((EditText) containerView.getChildAt(0));
+            linearLayout.addView(containerView);
+        });
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Create UserModel")
+                .setView(linearLayout)
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    dialog.dismiss();
+                    String name = edtName.getText().toString().trim();
+                    String ageStr = edtAge.getText().toString().trim();
+                    int age;
+                    try {
+                        age = ageStr.isEmpty() ? 0 : Integer.parseInt(ageStr);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        age = 0;
+                    }
+                    UserEntity userEntity = new UserEntity(name, age);
+                    Stream.of(lsEmailTF)
+                            .filterNot(editText -> editText.toString().isEmpty())
+                            .forEach(editText -> {
+                                EmailEntity emailEntity = new EmailEntity();
+                                emailEntity.setEmail(editText.getText().toString().trim());
+                                emailEntity.setActive(0);
+                                userEntity.addEmail(emailEntity);
+                            });
+                    userListPresenter.insertUser(userEntity);
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                .create().show();
+    }
+
+    private View replicateEmailTextField() {
+        FrameLayout emailTextFieldLayout = new FrameLayout(this);
+        emailTextFieldLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        ));
+
+        EditText emailTextField = new EditText(this);
+        FrameLayout.LayoutParams emailTFParams = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        emailTFParams.gravity = Gravity.START | Gravity.CENTER_VERTICAL;
+        emailTextField.setHint("EmailModel");
+        emailTextField.setLayoutParams(emailTFParams);
+        emailTextField.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        emailTextField.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        emailTextField.setTextColor(ContextCompat.getColor(this, android.R.color.background_dark));
+        emailTextFieldLayout.addView(emailTextField, 0);
+        return emailTextFieldLayout;
+    }
 
     @Override
     public void showEmailsDialog(Collection<EmailModel> lsEmailModels) {
@@ -261,6 +281,13 @@ public class MainActivity extends BaseActivity implements UserListView {
         userAdapter.deleteUser(uid);
         searchAdapter.updateData(userAdapter.getUsers());
         Toast.makeText(this, "User deleted: " + name, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void insertUser(UserModel userModel) {
+        userAdapter.addUser(userModel);
+        searchAdapter.updateData(userAdapter.getUsers());
+        Toast.makeText(this, "User inserted: " + userModel.getName(), Toast.LENGTH_SHORT).show();
     }
 
     private View createDialogView(List<EmailModel> lsEmailModels) {

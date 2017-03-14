@@ -2,8 +2,10 @@ package com.sample.realmpractices.presentation.presenter;
 
 import android.util.Log;
 
+import com.sample.realmpractices.data.entity.UserEntity;
 import com.sample.realmpractices.domain.Email;
 import com.sample.realmpractices.domain.User;
+import com.sample.realmpractices.domain.interactor.CreateUserUseCase;
 import com.sample.realmpractices.domain.interactor.DefaultSubscriber;
 import com.sample.realmpractices.domain.interactor.DeleteUserUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserEmailListUseCase;
@@ -28,17 +30,20 @@ public class UserListPresenter implements Presenter {
     private final GetUserListUseCase getUserListUseCase;
     private final GetUserEmailListUseCase getUserEmailListUseCase;
     private final DeleteUserUseCase deleteUserUseCase;
+    private final CreateUserUseCase createUserUseCase;
     private final UserModelDataMapping userModelDataMapping;
     private final EmailModelDataMapping emailModelDataMapping;
 
     public UserListPresenter(GetUserListUseCase getUserListUseCase,
                              GetUserEmailListUseCase getUserEmailListUseCase,
                              DeleteUserUseCase deleteUserUseCase,
+                             CreateUserUseCase createUserUseCase,
                              UserModelDataMapping userModelDataMapping,
                              EmailModelDataMapping emailModelDataMapping) {
         this.getUserListUseCase = getUserListUseCase;
         this.getUserEmailListUseCase = getUserEmailListUseCase;
         this.deleteUserUseCase = deleteUserUseCase;
+        this.createUserUseCase = createUserUseCase;
         this.userModelDataMapping = userModelDataMapping;
         this.emailModelDataMapping = emailModelDataMapping;
     }
@@ -78,6 +83,11 @@ public class UserListPresenter implements Presenter {
         userListView.viewUser(userModel);
     }
 
+    public void insertUser(final UserEntity userEntity) {
+        createUserUseCase.setUserEntity(userEntity);
+        createUserUseCase.execute(new CreateUserSubscriber());
+    }
+
     public void deleteUser(final UserModel userModel) {
         deleteUserUseCase.setUserId(userModel.getId());
         deleteUserUseCase.execute(new DeleteUserSubscriber());
@@ -111,6 +121,11 @@ public class UserListPresenter implements Presenter {
     private void showEmailsToView(Collection<Email> emailCollection) {
         final Collection<EmailModel> emailModelCollection = emailModelDataMapping.parseList(emailCollection);
         userListView.showEmailsDialog(emailModelCollection);
+    }
+
+    private void showUserInserted(User user) {
+        final UserModel userModel = userModelDataMapping.parse(user);
+        userListView.insertUser(userModel);
     }
 
     private void showUserDeleted(int uid) {
@@ -152,6 +167,24 @@ public class UserListPresenter implements Presenter {
         @Override
         public void onNext(List<Email> emails) {
             UserListPresenter.this.showEmailsToView(emails);
+        }
+    }
+
+    private final class CreateUserSubscriber extends DefaultSubscriber<User> {
+
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(User integer) {
+            showUserInserted(integer);
         }
     }
 

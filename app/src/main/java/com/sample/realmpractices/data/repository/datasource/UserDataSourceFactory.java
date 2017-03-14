@@ -21,6 +21,6 @@ public class UserDataSourceFactory {
 
     public UserDataSource createDataSource() {
         WebServiceApi webServiceApi = new WebServiceApiImpl();
-        return new SavedUserDataSource(userHandler, webServiceApi, databaseTransaction);
+        return new UserSavedDataSource(userHandler, webServiceApi, databaseTransaction);
     }
 }

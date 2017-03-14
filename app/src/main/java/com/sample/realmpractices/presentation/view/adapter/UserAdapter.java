@@ -82,6 +82,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             });
     }
 
+    public UserModel getUserById(int uid) {
+        return Stream.of(userModels)
+                .filter(user -> uid == user.getId())
+                .findFirst().get();
+    }
+
     protected class ViewHolder extends RecyclerView.ViewHolder {
 
         private CardView cardView;

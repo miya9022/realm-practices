@@ -15,12 +15,12 @@ import rx.Observable;
  * Created by app on 3/9/17.
  */
 
-class SavedUserDataSource implements UserDataSource {
+class UserSavedDataSource implements UserDataSource {
     private final WebServiceApi webServiceApi;
     private final UserHandler userHandler;
     private final DatabaseTransaction databaseTransaction;
 
-    SavedUserDataSource(UserHandler userHandler,
+    UserSavedDataSource(UserHandler userHandler,
                         WebServiceApi webServiceApi,
                         DatabaseTransaction databaseTransaction) {
         this.userHandler = userHandler;

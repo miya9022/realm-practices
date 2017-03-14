@@ -29,45 +29,35 @@ public class RealmProvider {
     }
 
     public static int getLastId(Class<? extends RealmObject> clazz, String fieldName) {
-        if (getDefaultInstance().where(clazz).findAll().size() <= 0) return 0;
+        if (getDefaultInstance().where(clazz).findAll().size() <= 0)
+            return 0;
         return getDefaultInstance().where(clazz).max(fieldName).intValue();
     }
 
     public void insert(RealmObject o) {
         getDefaultInstance().executeTransactionAsync(realm -> {
             realm.copyToRealm(o);
-            if (onChangeListener != null)
-                onChangeListener.onChange(Type.INSERT, o);
         }, () -> Log.d(TAG, "insert success"), (e) -> Log.d(TAG, "insert failed caused by " + e.getMessage()));
     }
 
     public void deleteFirst(Class<? extends RealmObject> c) {
         getDefaultInstance().executeTransactionAsync(realm -> {
-            RealmObject object = getDefaultInstance().where(c).findFirst();
-            Object o = realm.copyFromRealm(object);
+            RealmObject object = getDefaultInstance().where(c).findAll().first();
             object.deleteFromRealm();
-            if (onChangeListener != null)
-                onChangeListener.onChange(Type.DELETE, o);
         }, () -> Log.d(TAG, "delete success"), (e) -> Log.d(TAG, "delete failed caused by " + e.getMessage()));
     }
 
     public void deleteLast(Class<? extends RealmObject> c) {
         getDefaultInstance().executeTransactionAsync(realm -> {
             RealmObject object = getDefaultInstance().where(c).findAll().last();
-            Object o = realm.copyFromRealm(object);
             object.deleteFromRealm();
-            if (onChangeListener != null)
-                onChangeListener.onChange(Type.DELETE, o);
         }, () -> Log.d(TAG, "delete success"), (e) -> Log.d(TAG, "delete failed caused by " + e.getMessage()));
     }
 
     public void deleteById(Class<? extends RealmObject> c, int id) {
         getDefaultInstance().executeTransactionAsync(realm -> {
             RealmObject object = getRealmObjectById(c, "id", id);
-            Object o = realm.copyFromRealm(object);
             object.deleteFromRealm();
-            if (onChangeListener != null)
-                onChangeListener.onChange(Type.DELETE, o);
         },() -> Log.d(TAG, "delete success"), (e) -> Log.d(TAG, "delete failed caused by " + e.getMessage()));
     }
 
@@ -87,25 +77,5 @@ public class RealmProvider {
 
     public RealmResults<? extends RealmObject> queryAll(Class<? extends RealmObject> c) {
         return getDefaultInstance().where(c).findAll();
-    }
-
-    private OnChangeListener onChangeListener;
-
-    public void addOnChangeListener(OnChangeListener listener) {
-        this.onChangeListener = listener;
-    }
-
-    public void closeRealm() {
-        if (getDefaultInstance().isClosed()) return;
-        getDefaultInstance().close();
-    }
-
-    public interface OnChangeListener {
-        void onChange(int type, Object object);
-    }
-
-    public class Type {
-        public static final int INSERT = 1;
-        public static final int DELETE = 2;
     }
 }

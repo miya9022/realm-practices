@@ -256,10 +256,11 @@ public class MainActivity extends BaseActivity implements UserListView {
     }
 
     @Override
-    public void deleteUser(UserModel userModel) {
-        getApplicationComponent().getUserRepository().deleteUser(userModel.getId());
-        userAdapter.deleteUser(userModel.getId());
+    public void deleteUser(int uid) {
+        String name = userAdapter.getUserById(uid).getName();
+        userAdapter.deleteUser(uid);
         searchAdapter.updateData(userAdapter.getUsers());
+        Toast.makeText(this, "User deleted: " + name, Toast.LENGTH_SHORT).show();
     }
 
     private View createDialogView(List<EmailModel> lsEmailModels) {

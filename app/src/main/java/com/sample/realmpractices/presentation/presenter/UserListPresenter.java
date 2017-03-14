@@ -1,11 +1,13 @@
 package com.sample.realmpractices.presentation.presenter;
 
+import android.util.Log;
+
 import com.sample.realmpractices.domain.Email;
 import com.sample.realmpractices.domain.User;
+import com.sample.realmpractices.domain.interactor.DefaultSubscriber;
 import com.sample.realmpractices.domain.interactor.DeleteUserUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserEmailListUseCase;
 import com.sample.realmpractices.domain.interactor.GetUserListUseCase;
-import com.sample.realmpractices.domain.interactor.DefaultSubscriber;
 import com.sample.realmpractices.presentation.mapper.EmailModelDataMapping;
 import com.sample.realmpractices.presentation.mapper.UserModelDataMapping;
 import com.sample.realmpractices.presentation.model.EmailModel;
@@ -77,7 +79,8 @@ public class UserListPresenter implements Presenter {
     }
 
     public void deleteUser(final UserModel userModel) {
-        userListView.deleteUser(userModel);
+        deleteUserUseCase.setUserId(userModel.getId());
+        deleteUserUseCase.execute(new DeleteUserSubscriber());
     }
 
     private void showViewLoading() {
@@ -108,6 +111,10 @@ public class UserListPresenter implements Presenter {
     private void showEmailsToView(Collection<Email> emailCollection) {
         final Collection<EmailModel> emailModelCollection = emailModelDataMapping.parseList(emailCollection);
         userListView.showEmailsDialog(emailModelCollection);
+    }
+
+    private void showUserDeleted(int uid) {
+        userListView.deleteUser(uid);
     }
 
     private final class UserListSubscriber extends DefaultSubscriber<List<User>> {
@@ -145,6 +152,25 @@ public class UserListPresenter implements Presenter {
         @Override
         public void onNext(List<Email> emails) {
             UserListPresenter.this.showEmailsToView(emails);
+        }
+    }
+
+    private final class DeleteUserSubscriber extends DefaultSubscriber<Integer> {
+
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(Integer userId) {
+            Log.d("User id deleted ", userId.toString());
+            showUserDeleted(userId);
         }
     }
 }
